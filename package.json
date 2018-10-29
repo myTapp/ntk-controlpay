@@ -1,0 +1,17 @@
+{
+  "name": "ntk-controlpay",
+  "version": "1.0.0",
+  "description": "NTK ControlPay Node.js API",
+  "main": "controlpay.js",
+  "scripts": {},
+  "author": "myTapp",
+  "license": "GNU (GPLv3)",
+  "dependencies": {
+    "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "leite": "^0.2.0"
+  }
+}
