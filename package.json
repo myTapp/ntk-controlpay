@@ -1,6 +1,6 @@
 {
   "name": "ntk-controlpay",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "NTK ControlPay Node.js API",
   "main": "controlpay.js",
   "scripts": {},

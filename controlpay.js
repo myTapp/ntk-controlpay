@@ -362,18 +362,17 @@ class ControlPay {
                 id: body.intencaoVenda.id, interval: setInterval(() => {
                     this.sale.get(body.intencaoVenda.id, (e, body) => {
                         let status;
-                        if (body && body.intencoesVendas && body.intencoesVendas[0]) {
-                            status = body.intencoesVendas[0].intencaoVendaStatus;
-
+                        if (body && body[0]) {
+                            status = body[0].intencaoVendaStatus;
                             if (status.id >= 10) {
                                 for(let w = 0; w < this.watchers.length; w++) {
-                                    if(this.watchers[w].id === body.intencoesVendas[0].id) {
+                                    if(this.watchers[w].id === body[0].id) {
                                         clearInterval(this.watchers[w].interval);
                                     }
                                 }
 
                                 try {
-                                    this.sale.callback(body.intencoesVendas[0]);
+                                    this.sale.callback(body[0]);
                                 }
                                 catch (err) {
                                     console.error(err);
@@ -382,7 +381,7 @@ class ControlPay {
                             else{
                                 if(this.options.any_status_callback === true) {
                                     try {
-                                        this.sale.callback(null, body.intencoesVendas[0]);
+                                        this.sale.callback(null, body[0]);
                                     }
                                     catch (err) {
                                         console.error(err);
