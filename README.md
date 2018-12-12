@@ -18,7 +18,7 @@ controlPay.person.set(1234);
 controlPay.terminal.set(1234);
 ```
 
-## criando uma intenção de venda
+### criando uma intenção de venda
 ```
 controlPay.sale.sell({
     type: 'credit',
