@@ -32,6 +32,13 @@ controlPay.sale.sell({
 });
 ```
 
+### login
+```
+controlPay.login('USER', 'PASSWORD', (e, res) => {
+    controlPay.person.set(res.pessoa.id);
+});
+```
+
 ## objetos disponíveis
 | Objeto | Métodos |
 | ------ | -------------- |
@@ -44,11 +51,3 @@ controlPay.sale.sell({
 | token | create, edit, getAllCCs |
 | print | create, get |
 | administrative | create, setPassword |
-
-
-### login
-```
-controlPay.login('USER', 'PASSWORD', (e, res) => {
-    controlPay.person.set(res.pessoa.id);
-});
-```
