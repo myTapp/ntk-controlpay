@@ -31,3 +31,24 @@ controlPay.sale.sell({
   
 });
 ```
+
+## objetos disponíveis
+| Objeto | Métodos |
+| ------ | -------------- |
+| terminal | add, getAll, set |
+| sale | sell, cancel, get, getDetailed |
+| person | create, set, getAvaiblePaymentTypes |
+| product | create, getAll |
+| order | create, get, getAll, cancel |
+| client | create, get, getAll |
+| token | create, edit, getAllCCs |
+| print | create, get |
+| administrative | create, setPassword |
+
+
+### login
+```
+controlPay.login('USER', 'PASSWORD', (e, res) => {
+    controlPay.person.set(res.pessoa.id);
+});
+```
