@@ -3,6 +3,11 @@ NTK ControlPay Node.js API
 
 ## quick-start
 ```
+npm install ntk-controlpay
+```
+
+```
+// setup
 const controlPay = new CP({
     token: 'TOKEN',
     mode: 'sandbox',
