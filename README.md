@@ -8,14 +8,15 @@ npm install ntk-controlpay
 
 ```
 // setup
+const CP = require('ntk-controlpay')
 const controlPay = new CP({
     token: 'TOKEN',
     mode: 'sandbox',
     pooling: true
-});
+})
 
-controlPay.person.set(1234);
-controlPay.terminal.set(1234);
+controlPay.person.set(1234)
+controlPay.terminal.set(1234)
 ```
 
 ### criando uma intenção de venda
