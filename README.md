@@ -20,7 +20,7 @@ controlPay.person.set(1234)
 controlPay.terminal.set(1234)
 ```
 
-### creating sell`s
+### creating sells
 ```
 controlPay.sale.sell({
     type: 'credit',
