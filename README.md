@@ -1,8 +1,8 @@
-# ntk-controlpay
+## ntk-controlpay
 
 NTK ControlPay Node.js API
 
-## quick start
+### quick start
 ```
 npm install ntk-controlpay
 ```
@@ -41,7 +41,7 @@ controlPay.login('USER', 'PASSWORD', (e, res) => {
 });
 ```
 
-## objects
+### objects
 | objects | methods available |
 | ------ | -------------- |
 | terminal | add, getAll, set |
