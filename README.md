@@ -4,7 +4,7 @@ NTK ControlPay Node.js API
 
 ### quick start
 ```
-npm install ntk-controlpay
+npm i ntk-controlpay
 ```
 
 ```
