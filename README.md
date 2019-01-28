@@ -22,7 +22,7 @@ controlPay.person.set(1234)
 controlPay.terminal.set(1234)
 ```
 
-### criando uma intenção de venda
+### creating sell`s
 ```
 controlPay.sale.sell({
     type: 'credit',
@@ -43,7 +43,7 @@ controlPay.login('USER', 'PASSWORD', (e, res) => {
 });
 ```
 
-## objetos disponíveis
+## objects
 | Objeto | Métodos |
 | ------ | -------------- |
 | terminal | add, getAll, set |
