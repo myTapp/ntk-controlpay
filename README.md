@@ -1,7 +1,5 @@
 # ntk-controlpay
 
-[![install size](https://packagephobia.now.sh/badge?p=ntk-controlpay)](https://packagephobia.now.sh/result?p=ntk-controlpay)
-
 NTK ControlPay Node.js API
 
 ## quick-start
