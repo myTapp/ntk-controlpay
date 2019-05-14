@@ -1,108 +1,6 @@
 const request = require('request');
-const _endpoints = {
-    'terminal.add': {
-        url: 'Terminal/Insert?key=',
-        type: 'post'
-    },
-    'terminal.getByPersonId': {
-        url: 'Terminal/GetByPessoaId?key=&pessoaId=',
-        type: 'post'
-    },
-    'sale.sell': {
-        url: 'Venda/Vender/?key=',
-        type: 'post'
-    },
-    'sale.cancel': {
-        url: 'Venda/CancelarVenda?key=',
-        type: 'post'
-    },
-    'sale.get': {
-        url: 'IntencaoVenda/GetByFiltros?key=',
-        type: 'post'
-    },
-    'sale.getDetailed': {
-        url: 'PagamentoExterno/GetByFiltros/?key=',
-        type: 'post'
-    },
-    'person.create': {
-        url: 'Pessoa/Insert',
-        type: 'post'
-    },
-    'person.avaiblePayments': {
-        url: 'FormaPagamento/GetByPessoaId?key=&pessoaId=',
-        type: 'get'
-    },
-    'product.getAll': {
-        url: 'Produto/GetByPessoaId?key=&pessoaId=',
-        type: 'post'
-    },
-    'product.create': {
-        url: 'Produto/Insert?key=&pessoaId=',
-        type: 'post'
-    },
-    'order.create': {
-        url: 'Pedido/Insert/?key=',
-        type: 'post'
-    },
-    'order.get': {
-        url: 'Pedido/GetById?key=&pedidoId=',
-        type: 'get'
-    },
-    'order.getAll': {
-        url: 'Pedido/GetByFiltros?key=',
-        type: 'post'
-    },
-    'order.cancel': {
-        url: 'Pedido/Cancelar?key=&pedidoId=',
-        type: 'get'
-    },
-    'client.create': {
-        url: 'Cliente/Insert?key=',
-        type: 'post'
-    },
-    'client.get': {
-        url: 'Cliente/GetById?key=&clienteId=',
-        type: 'post'
-    },
-    'client.getAll': {
-        url: 'Cliente/GetByPessoaId?key=&pessoaId=',
-        type: 'post'
-    },
-    'token.create': {
-        url: 'ClienteCartao/Insert?key=',
-        type: 'post'
-    },
-    'token.edit': {
-        url: 'ClienteCartao/Insert?key=',
-        type: 'post'
-    },
-    'token.getAll': {
-        url: 'ClienteCartao/GetByClienteId?key=&clienteId=',
-        type: 'post'
-    },
-    'print.create': {
-        url: 'IntencaoImpressao/Insert?key=',
-        type: 'post'
-    },
-    'print.get': {
-        url: 'IntencaoImpressao/GetById?key=&intencaoImpressaoId=',
-        type: 'get'
-    },
-    'administrative.create': {
-        url: 'PagamentoExterno/InsertPagamentoExternoTipoAdmin?key=',
-        type: 'post'
-    },
-    'login': {
-        url: 'Login/Login/',
-        type: 'post'
-    }
-}
-
-const _payment_modes = {
-    'credit': 21,
-    'debit': 22,
-    'voucher': 23
-};
+const _endpoints = require('./endpoints.js');
+const _payment_modes = require('./payment-modes.js');
 
 class ControlPay {
     constructor(options) {
@@ -364,10 +262,13 @@ class ControlPay {
                         let status;
                         if (body && body[0]) {
                             status = body[0].intencaoVendaStatus;
-                            if (status.id >= 10) {
+                            if (status.id >= 10) { 
                                 for(let w = 0; w < this.watchers.length; w++) {
                                     if(this.watchers[w].id === body[0].id) {
                                         clearInterval(this.watchers[w].interval);
+                                        this.watchers[w] = null;
+                                        this.watchers.splice(w, 1);
+                                        break;
                                     }
                                 }
 
@@ -438,27 +339,32 @@ class ControlPay {
 
     initCallbackServer() {
         try {
-            this.options.server.post('/sell/callback', (req, res) => {
-                if (this.sale.callback) {
-                    this.sale.get(req.query.intencaoVendaId, (e, _res) => {
-                        try {
-                            this.sale.callback(_res.intencoesVendas[0]);
-                        } catch (err) { console.error(err); }
-                    });
-                }
-                res.sendStatus(200);
-            });
-
-            this.options.server.post('/order/callback', (req, res) => {
-                if (this.order.callback) {
-                    this.order.get(req.query.intencaoVendaId, (e, _res) => {
-                        try {
-                            this.order.callback(req.query);
-                        } catch (err) { console.error(err); }
-                    });
-                }
-                res.sendStatus(200);
-            });
+            if(this.options.server && this.options.server.post) {
+                this.options.server.post('/sell/callback', (req, res) => {
+                    if (this.sale.callback) {
+                        this.sale.get(req.query.intencaoVendaId, (e, _res) => {
+                            try {
+                                this.sale.callback(_res.intencoesVendas[0]);
+                            } catch (err) { console.error(err); }
+                        });
+                    }
+                    res.sendStatus(200);
+                });
+    
+                this.options.server.post('/order/callback', (req, res) => {
+                    if (this.order.callback) {
+                        this.order.get(req.query.intencaoVendaId, (e, _res) => {
+                            try {
+                                this.order.callback(req.query);
+                            } catch (err) { console.error(err); }
+                        });
+                    }
+                    res.sendStatus(200);
+                });
+            }
+            else {
+                console.error('Invalid server')
+            }
         }
         catch (err) { console.error(err); }
     }
