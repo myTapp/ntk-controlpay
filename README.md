@@ -3,12 +3,11 @@
 NTK ControlPay Node.js API
 
 ### quick start
-```
+```sh
 npm i ntk-controlpay
 ```
 
-```
-// setup
+```javascript
 const CP = require('ntk-controlpay')
 const controlPay = new CP({
     token: 'TOKEN',
@@ -21,7 +20,7 @@ controlPay.terminal.set(1234)
 ```
 
 ### creating sells
-```
+```javascript
 controlPay.sale.sell({
     type: 'credit',
     referencia: null,
@@ -35,7 +34,7 @@ controlPay.sale.sell({
 ```
 
 ### login
-```
+```javascript
 controlPay.login('USER', 'PASSWORD', (e, res) => {
     controlPay.person.set(res.pessoa.id);
 });
